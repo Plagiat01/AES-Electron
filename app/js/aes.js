@@ -1,9 +1,10 @@
 const fs = require('fs');
+const path = require('path');
 const CryptoJS = require('crypto-js');
 const Crypto = require('crypto');
 const { Buffer } = require('buffer');
 
-async function cipher_file(passphrase, origin, dest, mode, bufferSize, msg){
+function cipher_file(passphrase, origin, dest, mode, bufferSize, msg){
     var iv = null;
     var salt = null;
     var hash_file = null;
@@ -104,10 +105,10 @@ async function cipher_file(passphrase, origin, dest, mode, bufferSize, msg){
 
 async function encrypt(passphrase, plain_file_path){
     let encrypted_file_path = plain_file_path + '.aes';
-    cipher_file(passphrase, plain_file_path, encrypted_file_path, 'enc', 65536, "Encrypting done.");
+    cipher_file(passphrase, plain_file_path, encrypted_file_path, 'enc', 65536, path.basename(plain_file_path) + " is encrypted.");
 }
 
 async function decrypt(passphrase, encrypted_file_path){
     let plain_file_path = encrypted_file_path.replace(/\.[^/.]+$/, "");
-    cipher_file(passphrase, encrypted_file_path, plain_file_path, 'dec', 65552, "Decrypting done.");
+    cipher_file(passphrase, encrypted_file_path, plain_file_path, 'dec', 65552, path.basename(encrypted_file_path) + " is decrypted.");
 }

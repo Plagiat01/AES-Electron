@@ -1,5 +1,5 @@
 # AES-Electron
-File encryption software made with Electron
+File encryption software made with Electron.
 
 # Dependencies
 - [CryptoJS](https://cryptojs.gitbook.io/docs/)

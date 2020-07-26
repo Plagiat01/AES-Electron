@@ -1,6 +1,10 @@
 # AES-Electron
 File encryption software made with Electron.
 
+# Interface
+MacOs 10.15.6:
+![Interface](ressources/images/example.png)
+
 # Dependencies
 - [CryptoJS](https://cryptojs.gitbook.io/docs/)
 - [Crypto](https://nodejs.org/api/crypto.html)

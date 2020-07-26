@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>AES File Encrypt</title>
+        <meta charset="UTF-8">
+        <script src="../js/aes.js"></script>
+        <link rel='stylesheet' href='https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css'>
+        <link rel="stylesheet" href="./style.css">
+    </head>
+
+    <body id="body">
+        <div class="wrapper">
+            <div class="file-upload">
+              <input id='files' type="file" onchange="dispfile()" multiple/>
+              <i class="fa fa-arrow-up"></i>
+            </div>
+        </div>
+
+        <p id='filename' style="color: #FFFFFF;">
+        </p>
+        
+        <p>
+            <input id="passphrase" type="password" placeholder="Passphrase">
+        </p>
+
+        <p>
+            <button id="but" onclick="enc();">Encrypt</button>
+            <button id="but" onclick="dec();">Decrypt</button>
+        </p>
+
+        <p id='missing' style="color: red;">
+
+        </p>
+        <script>
+            function enc(){
+                var passphrase = document.getElementById('passphrase').value;
+                var files = document.getElementById('files').files;
+
+                if (files.length == 0)
+                    document.getElementById('missing').innerHTML = "File(s) required.";
+                else if (passphrase == '')
+                    document.getElementById('missing').innerHTML = "Passphrase required.";
+                else {
+                    document.getElementById('missing').innerHTML = "";
+                    for (i = 0; i<files.length; i++){
+                        encrypt(passphrase, files[i].path)
+                    }
+                }
+            }
+
+            function dec(){
+                var passphrase = document.getElementById('passphrase').value;
+                var files = document.getElementById('files').files;
+
+                if (files.length == 0)
+                    document.getElementById('missing').innerHTML = "File(s) required.";
+                else if (passphrase == '')
+                    document.getElementById('missing').innerHTML = "Passphrase required.";
+                else {
+                    document.getElementById('missing').innerHTML = "";
+                    for (i = 0; i<files.length; i++){
+                        decrypt(passphrase, files[i].path)
+                    }
+                }
+            }
+        
+            function dispfile(){
+                var files = document.getElementById('files').files;
+                if (files.length == 1)
+                    document.getElementById('filename').innerHTML = files[0].name;
+                else
+                    document.getElementById('filename').innerHTML = files.length + " files selected.";
+            }
+        </script>
+    </body>
+</html>

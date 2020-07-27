@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const CryptoJS = require('crypto-js');
 const Crypto = require('crypto');
+const secureRm = require('secure-remove');
 const { Buffer } = require('buffer');
 
 function cipher_file(passphrase, origin, dest, mode, bufferSize, msg){
@@ -91,7 +92,7 @@ function cipher_file(passphrase, origin, dest, mode, bufferSize, msg){
                 position_dest += out.length;
             }
 
-            fs.unlinkSync(origin);
+            secureRm.polyfill(origin, {iterations: 10, remove: true});
             alert(msg);
             return true;
 

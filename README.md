@@ -8,6 +8,7 @@ MacOs 10.15.6:
 # Dependencies
 - [CryptoJS](https://cryptojs.gitbook.io/docs/)
 - [Crypto](https://nodejs.org/api/crypto.html)
+- [secure-remove](https://www.npmjs.com/package/secure-remove)
 
 # Algorithms used
 - [AES-256 CBC Mode](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard)

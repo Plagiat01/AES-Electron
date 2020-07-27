@@ -2,7 +2,7 @@
 File encryption and PDF digital signature software made with Electron.
 
 # Interface (MacOs 10.15.6)
-#### File encryption :
+#### File encryption/decryption :
 ![Interface](ressources/images/example1.gif)
 
 #### PDF digital signature :

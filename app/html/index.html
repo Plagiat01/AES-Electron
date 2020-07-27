@@ -32,35 +32,53 @@
 
         </p>
         <script>
+
+            function check_constraints(){
+                var passphrase = document.getElementById('passphrase').value;
+                var files = document.getElementById('files').files;
+
+                if (files.length == 0){
+                    document.getElementById('missing').innerHTML = "File(s) required.";
+                    return false;
+                }
+                else if (passphrase == ''){
+                    document.getElementById('missing').innerHTML = "Passphrase required.";
+                    return false;
+                }
+                else if (passphrase.length < 8){
+                    document.getElementById('missing').innerHTML = "The passphrase must be at least 8 characters long.";
+                    return false;
+                }
+                else {
+                    document.getElementById('missing').innerHTML = "";
+                    return true;
+                }
+            }
+
             function enc(){
                 var passphrase = document.getElementById('passphrase').value;
                 var files = document.getElementById('files').files;
 
-                if (files.length == 0)
-                    document.getElementById('missing').innerHTML = "File(s) required.";
-                else if (passphrase == '')
-                    document.getElementById('missing').innerHTML = "Passphrase required.";
-                else {
-                    document.getElementById('missing').innerHTML = "";
+                if (check_constraints()) {
                     for (i = 0; i<files.length; i++){
-                        encrypt(passphrase, files[i].path)
+                        encrypt(passphrase, files[i].path);
                     }
+                    document.getElementById('files').value = '';
+                    dispfile();
                 }
+
             }
 
             function dec(){
                 var passphrase = document.getElementById('passphrase').value;
                 var files = document.getElementById('files').files;
 
-                if (files.length == 0)
-                    document.getElementById('missing').innerHTML = "File(s) required.";
-                else if (passphrase == '')
-                    document.getElementById('missing').innerHTML = "Passphrase required.";
-                else {
-                    document.getElementById('missing').innerHTML = "";
+                if (check_constraints()) {
                     for (i = 0; i<files.length; i++){
-                        decrypt(passphrase, files[i].path)
+                        decrypt(passphrase, files[i].path);
                     }
+                    document.getElementById('files').value = '';
+                    dispfile();
                 }
             }
         
@@ -68,8 +86,10 @@
                 var files = document.getElementById('files').files;
                 if (files.length == 1)
                     document.getElementById('filename').innerHTML = files[0].name;
-                else
+                else if (files.length > 1)
                     document.getElementById('filename').innerHTML = files.length + " files selected.";
+                else
+                    document.getElementById('filename').innerHTML = '';
             }
         </script>
     </body>

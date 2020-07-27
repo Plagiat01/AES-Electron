@@ -5,13 +5,13 @@ const Crypto = require('crypto');
 const { Buffer } = require('buffer');
 
 function cipher_file(passphrase, origin, dest, mode, bufferSize, msg){
-    var iv = null;
-    var salt = null;
-    var hash_file = null;
+    var iv;
+    var salt;
+    var hash_file;
 
-    var key = null;   
-    var position_origin = null;
-    var position_dest = null;
+    var key;   
+    var position_origin;
+    var position_dest;
 
     fs.open(origin, 'r', function(status, fd_origin) {
         if (mode == 'dec'){
@@ -27,21 +27,16 @@ function cipher_file(passphrase, origin, dest, mode, bufferSize, msg){
                 alert("Wrong password");
                 return false;
             }
-
-            key = Crypto.scryptSync(passphrase, salt, 32);
                 
             position_origin = iv.length + salt.length + hash_file.length;
             position_dest = 0;
+
+            key = Crypto.scryptSync(passphrase, salt, 32);
             iv = CryptoJS.lib.WordArray.create(iv);
         }
 
         fs.open(dest, 'w', function(status, fd_dest){
-            try {
-                var stats = fs.statSync(origin);
-            } catch {
-            }
-
-            var fileSizeInBytes = stats["size"];
+            var fileSizeInBytes = fs.statSync(origin)['size'];
 
             if (mode == 'enc'){
                 salt = Crypto.randomBytes(16);
@@ -60,9 +55,10 @@ function cipher_file(passphrase, origin, dest, mode, bufferSize, msg){
                     if (err) throw 'error writing file: ' + err;
                 });
 
-                key = Crypto.scryptSync(passphrase, salt, 32);
                 position_origin = 0;
                 position_dest = iv.length + salt.length + hash.length;
+
+                key = Crypto.scryptSync(passphrase, salt, 32);
                 iv = CryptoJS.lib.WordArray.create(iv);
             }
 
@@ -103,12 +99,12 @@ function cipher_file(passphrase, origin, dest, mode, bufferSize, msg){
     });
 }
 
-async function encrypt(passphrase, plain_file_path){
-    let encrypted_file_path = plain_file_path + '.aes';
+function encrypt(passphrase, plain_file_path){
+    var encrypted_file_path = plain_file_path + '.aes';
     cipher_file(passphrase, plain_file_path, encrypted_file_path, 'enc', 65536, path.basename(plain_file_path) + " is encrypted.");
 }
 
-async function decrypt(passphrase, encrypted_file_path){
-    let plain_file_path = encrypted_file_path.replace(/\.[^/.]+$/, "");
+function decrypt(passphrase, encrypted_file_path){
+    var plain_file_path = encrypted_file_path.replace(/\.[^/.]+$/, "");
     cipher_file(passphrase, encrypted_file_path, plain_file_path, 'dec', 65552, path.basename(encrypted_file_path) + " is decrypted.");
 }

@@ -12,15 +12,11 @@
         <div class="wrapper">
             <div class="file-upload">
               <input id='files' type="file" onchange="dispfile()" multiple/>
-              <i class="fa fa-arrow-up"></i>
+              <i class="fa fa-lock"></i>
             </div>
         </div>
 
         <p id='filename' style="color: #FFFFFF;">
-        </p>
-        
-        <p>
-            <input id="passphrase" type="password" placeholder="Passphrase">
         </p>
 
         <p>
@@ -28,25 +24,36 @@
             <button id="but" onclick="dec();">Decrypt</button>
         </p>
 
+        <p>
+            <input id="passphrase" type="password" placeholder="Passphrase" style="margin-right: 15px;">
+            <input id="confirm_passphrase" type="password" placeholder="Confirm passphrase">
+        </p>
+
         <p id='missing' style="color: red;">
 
         </p>
         <script>
 
-            function check_constraints(){
+            function check_constraints(mode='dec'){
                 var passphrase = document.getElementById('passphrase').value;
+                var c_pass = document.getElementById('confirm_passphrase').value;
                 var files = document.getElementById('files').files;
 
                 if (files.length == 0){
                     document.getElementById('missing').innerHTML = "File(s) required.";
                     return false;
                 }
+
                 else if (passphrase == ''){
                     document.getElementById('missing').innerHTML = "Passphrase required.";
                     return false;
                 }
                 else if (passphrase.length < 8){
                     document.getElementById('missing').innerHTML = "The passphrase must be at least 8 characters long.";
+                    return false;
+                }
+                else if (passphrase != c_pass){
+                    document.getElementById('missing').innerHTML = "Passphrases do not match.";
                     return false;
                 }
                 else {
@@ -67,6 +74,8 @@
                     dispfile();
                 }
 
+                document.getElementById('passphrase').value = '';
+                document.getElementById('confirm_passphrase').value = '';
             }
 
             function dec(){
@@ -80,9 +89,11 @@
                     document.getElementById('files').value = '';
                     dispfile();
                 }
+                document.getElementById('passphrase').value = '';
+                document.getElementById('confirm_passphrase').value = '';
             }
         
-            function dispfile(){
+            function dispfile(mode = 'dec'){
                 var files = document.getElementById('files').files;
                 if (files.length == 1)
                     document.getElementById('filename').innerHTML = files[0].name;

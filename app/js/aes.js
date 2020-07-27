@@ -92,7 +92,7 @@ function cipher_file(passphrase, origin, dest, mode, bufferSize, msg){
                 position_dest += out.length;
             }
 
-            secureRm.polyfill(origin, {iterations: 10, remove: true});
+            secureRm.polyfill(origin, {remove: true});
             alert(msg);
             return true;
 

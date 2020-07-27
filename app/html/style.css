@@ -1,3 +1,7 @@
+  html {
+    -webkit-app-region: drag;
+  }
+
   body {
     margin-top: 150px;
     background-color: #404040;

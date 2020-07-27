@@ -1,14 +1,17 @@
 # AES-Electron
-File encryption software made with Electron.
+File encryption and PDF digital signature software made with Electron.
 
-# Interface
-MacOs 10.15.6:
-![Interface](ressources/images/example.png)
+# Interface (MacOs 10.15.6)
+File encryption :
+![Interface](ressources/images/example1.gif)
+PDF digital signature :
+![Interface](ressources/images/example2.gif)
 
 # Dependencies
 - [CryptoJS](https://cryptojs.gitbook.io/docs/)
 - [Crypto](https://nodejs.org/api/crypto.html)
 - [secure-remove](https://www.npmjs.com/package/secure-remove)
+- [node-signpdf](https://www.npmjs.com/package/node-signpdf)
 
 # Algorithms used
 - [AES-256 CBC Mode](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard)

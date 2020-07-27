@@ -4,8 +4,9 @@
         <title>AES File Encrypt</title>
         <meta charset="UTF-8">
         <script src="../js/aes.js"></script>
+        <script src="../js/signature.js"></script>
         <link rel='stylesheet' href='https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css'>
-        <link rel="stylesheet" href="./style.css">
+        <link rel="stylesheet" href="../css/index.css">
     </head>
 
     <body id="body">
@@ -19,89 +20,23 @@
         <p id='filename' style="color: #FFFFFF;">
         </p>
 
-        <p>
-            <button id="but" onclick="enc();">Encrypt</button>
-            <button id="but" onclick="dec();">Decrypt</button>
+        <p id='buttons'>
+            <button id="but_enc" onclick="cr_enc();" style="visibility: hidden;">Encrypt</button>
+            <button id="but_dec" onclick="cr_dec();" style="visibility: hidden;">Decrypt</button>
         </p>
 
-        <p>
-            <input id="passphrase" type="password" placeholder="Passphrase" style="margin-right: 15px;">
-            <input id="confirm_passphrase" type="password" placeholder="Confirm passphrase">
+        <p id='certificate_input'>
+        </p>
+
+        <p id=pass_input>
         </p>
 
         <p id='missing' style="color: red;">
+        <p>
+            <button type="button" id='go' style="visibility: hidden;">Go!</button>
+        </p>
 
         </p>
-        <script>
-
-            function check_constraints(mode='dec'){
-                var passphrase = document.getElementById('passphrase').value;
-                var c_pass = document.getElementById('confirm_passphrase').value;
-                var files = document.getElementById('files').files;
-
-                if (files.length == 0){
-                    document.getElementById('missing').innerHTML = "File(s) required.";
-                    return false;
-                }
-
-                else if (passphrase == ''){
-                    document.getElementById('missing').innerHTML = "Passphrase required.";
-                    return false;
-                }
-                else if (passphrase.length < 8){
-                    document.getElementById('missing').innerHTML = "The passphrase must be at least 8 characters long.";
-                    return false;
-                }
-                else if (passphrase != c_pass){
-                    document.getElementById('missing').innerHTML = "Passphrases do not match.";
-                    return false;
-                }
-                else {
-                    document.getElementById('missing').innerHTML = "";
-                    return true;
-                }
-            }
-
-            function enc(){
-                var passphrase = document.getElementById('passphrase').value;
-                var files = document.getElementById('files').files;
-
-                if (check_constraints()) {
-                    for (i = 0; i<files.length; i++){
-                        encrypt(passphrase, files[i].path);
-                    }
-                    document.getElementById('files').value = '';
-                    dispfile();
-                }
-
-                document.getElementById('passphrase').value = '';
-                document.getElementById('confirm_passphrase').value = '';
-            }
-
-            function dec(){
-                var passphrase = document.getElementById('passphrase').value;
-                var files = document.getElementById('files').files;
-
-                if (check_constraints()) {
-                    for (i = 0; i<files.length; i++){
-                        decrypt(passphrase, files[i].path);
-                    }
-                    document.getElementById('files').value = '';
-                    dispfile();
-                }
-                document.getElementById('passphrase').value = '';
-                document.getElementById('confirm_passphrase').value = '';
-            }
-        
-            function dispfile(mode = 'dec'){
-                var files = document.getElementById('files').files;
-                if (files.length == 1)
-                    document.getElementById('filename').innerHTML = files[0].name;
-                else if (files.length > 1)
-                    document.getElementById('filename').innerHTML = files.length + " files selected.";
-                else
-                    document.getElementById('filename').innerHTML = '';
-            }
-        </script>
+        <script src="../js/index.js"></script>
     </body>
 </html>

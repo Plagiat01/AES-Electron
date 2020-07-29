@@ -24,6 +24,10 @@ function clear(rm_files=false){
     try {
         document.getElementById('passphrase_c').remove();
     } catch {}
+    try {
+        document.getElementById('certif_file').remove();
+    } catch {}
+    
     document.getElementById('go').style.visibility = 'hidden';
 }
 function check_constraints_file(files){
@@ -96,6 +100,7 @@ function cr_enc(){
     passphrase.setAttribute("id", "passphrase");
     passphrase.setAttribute("placeholder", "Passphrase");
     passphrase.style.marginRight = '15px';
+
     var passphrase_c = document.createElement("input");
     passphrase_c.setAttribute("type", "password");
     passphrase_c.setAttribute("id", "passphrase_c");

@@ -2,7 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const CryptoJS = require('crypto-js');
 const Crypto = require('crypto');
-const secureRm = require('secure-remove');
 const { Buffer } = require('buffer');
 
 function cipher_file(passphrase, origin, dest, mode, bufferSize, msg){
@@ -77,13 +76,13 @@ function cipher_file(passphrase, origin, dest, mode, bufferSize, msg){
                     out = Buffer.from(enc.ciphertext.toString(), 'hex')
 
                 } else if (mode =='dec'){
-                    var enc = CryptoJS.AES.decrypt({ciphertext: CryptoJS.lib.WordArray.create(buffer)},
+                    var dec = CryptoJS.AES.decrypt({ciphertext: CryptoJS.lib.WordArray.create(buffer)},
                     CryptoJS.lib.WordArray.create(key), {
                         iv: iv,
                         mode: CryptoJS.mode.CBC,
                         padding: CryptoJS.pad.Pkcs7
                     });
-                    out = Buffer.from(enc.toString(), 'hex')
+                    out = Buffer.from(dec.toString(), 'hex')
                 }
                 fs.write(fd_dest, out, 0, out.length, position_dest, function(err) {
                     if (err) throw 'error writing file: ' + err;
@@ -92,7 +91,7 @@ function cipher_file(passphrase, origin, dest, mode, bufferSize, msg){
                 position_dest += out.length;
             }
 
-            secureRm.polyfill(origin, {remove: true});
+            fs.unlinkSync(origin);
             alert(msg);
             return true;
 

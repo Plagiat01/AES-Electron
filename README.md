@@ -11,7 +11,6 @@ File encryption and PDF digital signature software made with Electron.
 # Dependencies
 - [CryptoJS](https://cryptojs.gitbook.io/docs/)
 - [Crypto](https://nodejs.org/api/crypto.html)
-- [secure-remove](https://www.npmjs.com/package/secure-remove)
 - [node-signpdf](https://www.npmjs.com/package/node-signpdf)
 
 # Algorithms used

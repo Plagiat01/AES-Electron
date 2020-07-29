@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const CryptoJS = require('crypto-js');
 const Crypto = require('crypto');
+const secureRandom = require('secure-random');
 const { Buffer } = require('buffer');
 
 function cipher_file(passphrase, origin, dest, mode, bufferSize, msg){
@@ -39,8 +40,8 @@ function cipher_file(passphrase, origin, dest, mode, bufferSize, msg){
             var fileSizeInBytes = fs.statSync(origin)['size'];
 
             if (mode == 'enc'){
-                salt = Crypto.randomBytes(16);
-                iv = Crypto.randomBytes(16);
+                salt = secureRandom.randomBuffer(16);
+                iv = secureRandom.randomBuffer(16);
                 hash = Buffer.from(CryptoJS.SHA3(passphrase + salt).toString(), 'hex');
 
                 fs.write(fd_dest, iv, 0, iv.length, 0, function(err) {

@@ -10,11 +10,6 @@ function sign_pdf(path_pdf, path_certificate, passphrase){
         signatureLenght: 1612
     });
 
-    console.log(path_pdf);
-    console.log(path_certificate);
-    console.log(passphrase);
-
-
     if (passphrase == ''){
         try{
             pdfBuffer = signer.sign(pdfBuffer, p12Buffer);

@@ -12,6 +12,7 @@ File encryption and PDF digital signature software made with Electron.
 - [CryptoJS](https://cryptojs.gitbook.io/docs/)
 - [Crypto](https://nodejs.org/api/crypto.html)
 - [node-signpdf](https://www.npmjs.com/package/node-signpdf)
+- [secure-random](https://www.npmjs.com/package/secure-random)
 
 # Algorithms used
 - [AES-256 CBC Mode](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard)
